@@ -15,7 +15,11 @@ jwt = JWTManager(app)
 
 @app.route('/')
 def index():
-    return "Hello, World!"
+  return "Hello, World!"
+
+@app.route('/courses')
+def index():
+  return "Hello, World!"
 
 @app.route('/login', methods=['POST'])
 def login():
