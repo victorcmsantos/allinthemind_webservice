@@ -18,7 +18,7 @@ def index():
   return "Hello, World!"
 
 @app.route('/courses')
-def index():
+def courses():
   return "Hello, World!"
 
 @app.route('/login', methods=['POST'])
