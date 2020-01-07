@@ -1,4 +1,5 @@
 from app import app, db
+from app.mgmt_users import list_rules, get_admin, get_student, get_tutor
 from app.models import User
 from flask import jsonify, request
 from flask_jwt_extended import (
@@ -8,7 +9,6 @@ from flask_jwt_extended import (
   get_jwt_identity
 )
 import json
-from app.mgmt_users import list_rules, get_admin, get_student, get_tutor
 
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 jwt = JWTManager(app)
