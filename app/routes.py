@@ -1,7 +1,8 @@
 from app import app, db
+from app.courses import Courses
 from app.mgmt_users import list_rules, get_admin, get_student, get_tutor
 from app.models import User
-from flask import jsonify, request
+from flask import jsonify, request, send_file, send_from_directory
 from flask_jwt_extended import (
   JWTManager,
   jwt_required,
@@ -19,7 +20,14 @@ def index():
 
 @app.route('/courses')
 def courses():
-  return "Hello, World!"
+  course = Courses()
+  return jsonify(course.Descriptions())
+
+@app.route('/teste', methods=['GET', 'POST'])
+def download():
+  #uploads = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'])
+  return send_file( open('/tmp/teste.jpg', "rb"), as_attachment = True )
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -45,6 +53,7 @@ def login():
                  roles=list_rules(user_info['email']),
                  ), 200
 
+################################## testing the roles #################################
 @app.route('/admin', methods=['GET'])
 @jwt_required
 def roleadmin():
