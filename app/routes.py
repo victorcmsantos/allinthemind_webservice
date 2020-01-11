@@ -10,6 +10,7 @@ from flask_jwt_extended import (
   get_jwt_identity
 )
 import json
+import os
 
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 jwt = JWTManager(app)
@@ -23,10 +24,20 @@ def courses():
   course = Courses()
   return jsonify(course.Descriptions())
 
-@app.route('/teste', methods=['GET', 'POST'])
-def download():
-  #uploads = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'])
-  return send_file( open('/tmp/teste.jpg', "rb"), as_attachment = True )
+@app.route('/courses/<path:course_var>/logo.png')
+def get_logo(course_var):
+  return send_file( 'files/courses/%s/logo.png' % (course_var) )
+  #return send_file( 'files/courses/%s/logo.png' % (course), as_attachment=True )
+
+@app.route('/courses/<path:course_var>/introduction')
+def get_introduction(course_var):
+  course = Courses()
+  return jsonify(course.Introduction(course_var))
+
+@app.route('/courses/<path:course_var>/sections')
+def list_sections(course_var):
+  course = Courses()
+  return jsonify(course.List_Sections(course_var))
 
 
 @app.route('/login', methods=['POST'])
