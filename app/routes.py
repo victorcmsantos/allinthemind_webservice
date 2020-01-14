@@ -40,7 +40,7 @@ def list_sections(course_var):
   return jsonify(course.List_Sections(course_var))
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
   if not request.is_json:
     return jsonify({"msg": "Missing JSON in request"}), 400

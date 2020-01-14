@@ -4,6 +4,6 @@
 	"created_at": "01/01/2020",
 	"updated_at": "02/01/2020",
 	"description_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-	"description_logo": "http://localhost/files/courses/html/logo.png",
+	"description_logo": "/courses/html/logo.png",
 	"type": "programing"
 }
