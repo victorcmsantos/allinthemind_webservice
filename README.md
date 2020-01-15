@@ -2,7 +2,7 @@
 
 ## Create a Dockerfile
 ```bash
-cat <<'EOF'> dockerfile.conf
+cat <<'EOF'> Dockerfile
 FROM ubuntu:18.04
 
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf \
