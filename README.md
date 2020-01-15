@@ -2,6 +2,7 @@
 
 ## Create a Dockerfile
 ```bash
+cat <<'EOF'> dockerfile.conf
 FROM ubuntu:18.04
 
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf \
@@ -32,6 +33,7 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 EXPOSE 86
 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
+EOF
 ```
 
 ## Build a new image
