@@ -41,5 +41,5 @@ sudo docker build -t allinthemind03 .
 
 ## Run this new image
 ```bash
-sudo docker run -d -p 12:86  allinthemind03
+sudo docker run -d -p 80:86  allinthemind03
 ```
