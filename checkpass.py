@@ -1,14 +1,21 @@
 import json
 from app.models import User
 from app.courses import Courses
+from app.mgmt_users import getUsers
+
+print(getUsers())
+
+for k in getUsers():
+  print k
 
 
-Courses_l = Courses()
 
-#print(MyInstance.SayHello())
-
-
-print(Courses_l.Descriptions())
+#Courses_l = Courses()
+#
+##print(MyInstance.SayHello())
+#
+#
+#print(Courses_l.Descriptions())
 
 
 #user = User.query.filter_by(email='user008@example.com').first()

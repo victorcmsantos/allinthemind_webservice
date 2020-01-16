@@ -1,3 +1,5 @@
+from app import db
+from app.models import Course
 import os
 import json
 
@@ -9,9 +11,18 @@ class Courses:
   def Descriptions(self):
     data = []
     for i in courses_dir:
+      dic = {}
+      course_exist = Course.query.filter_by(name=i).first()
+      if not course_exist:
+        r = Course(name=i)
+        db.session.add(r)
+        db.session.commit()
+      course=Course.query.filter_by(name=i).first().id 
       the_course_dir = os.path.join(basedir, os.path.join(the_root_course_dir, i )) 
       with open(os.path.join(the_course_dir, 'desc.json'), 'r') as f:
-        data.append( json.load(f) )
+        dic['id']= Course.query.filter_by(name=i).first().id
+        dic.update(json.load(f))
+      data.append(dic)
     return data
 
   def Introduction(self, course):

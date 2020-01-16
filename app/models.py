@@ -36,3 +36,28 @@ class UserRoles(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
 
+class Course(db.Model):
+  __tablename__ = 'courses'
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(140), index=True, unique=True)
+  def __repr__(self):
+    return '<Course {}>'.format(self.name)
+
+class Classe(db.Model):
+  __tablename__ = 'classes'
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(140), index=True, unique=True)
+  course_id = db.Column(db.Integer(), db.ForeignKey('courses.id', ondelete='CASCADE'))
+  tutor_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
+  def __repr__(self):
+    return '<Classe {}>'.format(self.name)
+
+class Enrolled(db.Model):
+  __tablename__ = 'enrolled'
+  id = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
+  classe_id = db.Column(db.Integer(), db.ForeignKey('classes.id', ondelete='CASCADE'))
+  def __repr__(self):
+    return '<Enrolled {}>'.format(self.id)
+
+
