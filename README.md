@@ -19,6 +19,8 @@ RUN ln -nf /var/www/html6/06-allinthemind.conf /etc/apache2/sites-enabled/000-de
 
 RUN a2enmod wsgi
 
+RUN chown www-data. html6 -R
+
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf \
   && pip install -r html6/requirements.txt
 
