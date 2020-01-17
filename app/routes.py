@@ -108,6 +108,7 @@ def register_tutor():
     return jsonify({"msg": "not authorized"}), 401
 
 @app.route('/admin/users')
+@jwt_required
 def get_users():
   if get_admin(get_jwt_identity()):
     return jsonify(getUsers()), 200
