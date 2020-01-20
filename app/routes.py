@@ -120,6 +120,8 @@ def get_users():
 def classadd():
   if not request.is_json:
     return jsonify({"msg": "Missing JSON in request"}), 400
+  if not get_tutor(get_jwt_identity()):
+    return jsonify({"msg": "not authorized"}), 401
   classname_f_post = request.json.get('classname', None)
   course_f_post = request.json.get('course', None)
   if not classname_f_post:
