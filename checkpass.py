@@ -5,8 +5,8 @@ from app.mgmt_users import getUsers
 from app.classes import listClasses
 
 
-
-print(listClasses(3))
+#Descriptions()
+#print(listClasses(3))
 
 
 
@@ -18,12 +18,12 @@ print(listClasses(3))
 
 
 
-#Courses_l = Courses()
+Courses_l = Courses()
 #
 ##print(MyInstance.SayHello())
 #
 #
-#print(Courses_l.Descriptions())
+print(Courses_l.Descriptions())
 
 
 #user = User.query.filter_by(email='user008@example.com').first()

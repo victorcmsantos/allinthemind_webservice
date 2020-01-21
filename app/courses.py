@@ -12,16 +12,19 @@ class Courses:
     data = []
     for i in courses_dir:
       dic = {}
-      course_exist = Course.query.filter_by(name=i).first()
-      if not course_exist:
-        r = Course(name=i)
-        db.session.add(r)
-        db.session.commit()
-      course=Course.query.filter_by(name=i).first().id 
       the_course_dir = os.path.join(basedir, os.path.join(the_root_course_dir, i )) 
       with open(os.path.join(the_course_dir, 'desc.json'), 'r') as f:
-        dic['id']= Course.query.filter_by(name=i).first().id
-        dic.update(json.load(f))
+        person_dict = json.load(f)
+        #course_exist = Course.query.filter_by(name=i).first()
+        if not Course.query.filter_by(name=person_dict['name']).first():
+          r = Course(name=person_dict['name'])
+          db.session.add(r)
+          db.session.commit()
+#      course=Course.query.filter_by(name=i).first().id 
+        #print(json.load(f).)
+        #print(person_dict['name'])
+        dic['id']= Course.query.filter_by(name=person_dict['name']).first().id
+        dic.update(person_dict)
       data.append(dic)
     return data
 

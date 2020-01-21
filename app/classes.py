@@ -30,6 +30,7 @@ def listClasses( tutorID ):
   array=[]
   for i in Classe.query.filter_by(tutor_id=tutorID).all():
     dic = {}  
+#    print i 
     dic['course'] = courseName( i.course_id ).encode("utf-8")
     dic['classname'] =  i.name.encode("utf-8")
     dic['tutor'] = myEmail(i.tutor_id).encode("utf-8")
