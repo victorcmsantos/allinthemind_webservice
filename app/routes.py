@@ -10,7 +10,7 @@ from app.mgmt_users import ( list_rules,
   myID
 )
 
-from app.classes import createClass
+from app.classes import createClass, listClasses
 from app.models import User
 from flask import jsonify, request, send_file, send_from_directory
 from flask_jwt_extended import (
@@ -128,13 +128,24 @@ def classadd():
     return jsonify({"msg": "Missing classname parameter"}), 400
   if not course_f_post:
     return jsonify({"msg": "Missing course parameter"}), 400
+  print (classname_f_post, course_f_post, myID( get_jwt_identity() ))
   return jsonify( createClass( classname_f_post, course_f_post, myID( get_jwt_identity() )) )
 
-     
-  
+
+@app.route("/classes/list")
+@jwt_required
+def theclasses():
+  return jsonify( listClasses( myID( get_jwt_identity() ) ))
 
 
 
+
+
+#####################################################################################
+@app.route("/tokenvalidator",methods=['GET'])
+@jwt_required
+def tokenvalidator():
+  return jsonify({"msg": "Validated Token"}), 200
 ################################## testing the roles #################################
 @app.route('/admin', methods=['GET'])
 @jwt_required

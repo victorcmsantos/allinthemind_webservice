@@ -5,6 +5,9 @@ import json
 def myID(user_email):
   return str(User.query.filter_by(email=user_email).first().id)
 
+def myEmail(user_id):
+  return str(User.query.filter_by(id=user_id).first().email)
+
 def createRoles():
   status={}
   for i in ['student','admin','tutor']:

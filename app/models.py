@@ -50,7 +50,7 @@ class Classe(db.Model):
   course_id = db.Column(db.Integer(), db.ForeignKey('courses.id', ondelete='CASCADE'))
   tutor_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
   def __repr__(self):
-    return '<Classe {}>'.format(self.name)
+    return '<Classe {}>'.format(self.id)
 
 class Enrolled(db.Model):
   __tablename__ = 'enrolled'

@@ -2,11 +2,19 @@ import json
 from app.models import User
 from app.courses import Courses
 from app.mgmt_users import getUsers
+from app.classes import listClasses
 
-print(getUsers())
 
-for k in getUsers():
-  print k
+
+print(listClasses(3))
+
+
+
+
+#print(getUsers())
+#
+#for k in getUsers():
+#  print k
 
 
 
