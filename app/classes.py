@@ -9,6 +9,17 @@ def courseID(coursename):
 def courseName(courseID):
   return Course.query.filter_by(id=courseID).first().name
 
+def className(classid):
+  return Classe.query.filter_by(id=classid).first().name
+
+def tutorOfClasse(classId):
+  return myEmail(Classe.query.filter_by(id=classId).first().tutor_id)
+
+def courseOfClass(classId):
+  return courseName(Classe.query.filter_by(id=classId).first().course_id)
+
+
+
 def createClass( classname, course, tutorID ):
   status={}
   ###courseID = Course.query.filter_by(name=course).first()

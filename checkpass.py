@@ -23,7 +23,8 @@ Courses_l = Courses()
 ##print(MyInstance.SayHello())
 #
 #
-print(Courses_l.Descriptions())
+print(Courses_l.myCourses(2))
+#print(Courses_l.Descriptions())
 
 
 #user = User.query.filter_by(email='user008@example.com').first()

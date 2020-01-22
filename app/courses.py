@@ -1,5 +1,6 @@
 from app import db
-from app.models import Course
+from app.models import Course, Enrolled, Classe
+from app.classes import courseName, className, tutorOfClasse, courseOfClass
 import os
 import json
 
@@ -15,14 +16,10 @@ class Courses:
       the_course_dir = os.path.join(basedir, os.path.join(the_root_course_dir, i )) 
       with open(os.path.join(the_course_dir, 'desc.json'), 'r') as f:
         person_dict = json.load(f)
-        #course_exist = Course.query.filter_by(name=i).first()
         if not Course.query.filter_by(name=person_dict['name']).first():
           r = Course(name=person_dict['name'])
           db.session.add(r)
           db.session.commit()
-#      course=Course.query.filter_by(name=i).first().id 
-        #print(json.load(f).)
-        #print(person_dict['name'])
         dic['id']= Course.query.filter_by(name=person_dict['name']).first().id
         dic.update(person_dict)
       data.append(dic)
@@ -46,5 +43,17 @@ class Courses:
             data.append( {i:json.load(f)}  )
     return data
   
+  def myCourses(self, userID):
+    data = []
+    if Enrolled.query.filter_by(user_id=userID).all():
+      for i in Enrolled.query.filter_by(user_id=userID).all():
+        dic = {}
+        dic['classname'] = className(i.classe_id)
+        dic['tutor'] = tutorOfClasse(i.classe_id)
+        dic['course'] = courseOfClass(i.classe_id)
+        data.append(dic)
+    return data
+
+
 
 

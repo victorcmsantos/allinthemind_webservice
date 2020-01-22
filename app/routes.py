@@ -131,13 +131,16 @@ def classadd():
   print (classname_f_post, course_f_post, myID( get_jwt_identity() ))
   return jsonify( createClass( classname_f_post, course_f_post, myID( get_jwt_identity() )) )
 
-
 @app.route("/classes/list")
 @jwt_required
 def theclasses():
   return jsonify( listClasses( myID( get_jwt_identity() ) ))
 
-
+@app.route("/mycourses")
+@jwt_required
+def mycourses():
+  course = Courses()
+  return jsonify( course.myCourses( myID( get_jwt_identity() )  ))
 
 
 
