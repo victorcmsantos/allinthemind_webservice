@@ -10,7 +10,7 @@ from app.mgmt_users import ( list_rules,
   myID
 )
 
-from app.classes import createClass, listClasses
+from app.classes import createClass, listClasses, usersOfClass
 from app.models import User
 from flask import jsonify, request, send_file, send_from_directory
 from flask_jwt_extended import (
@@ -128,17 +128,41 @@ def classadd():
     return jsonify({"msg": "Missing classname parameter"}), 400
   if not course_f_post:
     return jsonify({"msg": "Missing course parameter"}), 400
-  print (classname_f_post, course_f_post, myID( get_jwt_identity() ))
+  #print (classname_f_post, course_f_post, myID( get_jwt_identity() ))
   return jsonify( createClass( classname_f_post, course_f_post, myID( get_jwt_identity() )) )
+
+@app.route("/class/adduser")
+@jwt_required
+def addusertoclass():
+  if not get_tutor(get_jwt_identity()):
+    return jsonify({"msg": "not authorized"}), 401
+
 
 @app.route("/classes/list")
 @jwt_required
 def theclasses():
+  if not get_tutor(get_jwt_identity()):
+    return jsonify({"msg": "not authorized"}), 401
   return jsonify( listClasses( myID( get_jwt_identity() ) ))
+
+@app.route("/class/usersofclass" ,methods=['POST'])
+@jwt_required
+def usersofclass():
+  if not request.is_json:
+    return jsonify({"msg": "Missing JSON in request"}), 400
+  if not get_tutor(get_jwt_identity()):
+    return jsonify({"msg": "not authorized"}), 401
+  classname_f_post = request.json.get('classname', None)
+  print(classname_f_post)
+  if not classname_f_post:
+    return jsonify({"msg": "Missing classname parameter"}), 400
+  return jsonify( usersOfClass(classname_f_post) )
 
 @app.route("/mycourses")
 @jwt_required
 def mycourses():
+#  if not get_student(get_jwt_identity()):
+#    return jsonify({"msg": "not authorized"}), 401
   course = Courses()
   return jsonify( course.myCourses( myID( get_jwt_identity() )  ))
 
@@ -149,29 +173,29 @@ def mycourses():
 @jwt_required
 def tokenvalidator():
   return jsonify({"msg": "Validated Token"}), 200
-################################## testing the roles #################################
-@app.route('/admin', methods=['GET'])
-@jwt_required
-def roleadmin():
-  if get_admin(get_jwt_identity()):
-    return jsonify({"msg":'ROLEADMIN', 'user_id': myID(get_jwt_identity()) }), 200
-  else:
-    return jsonify({"msg": "not authorized", 'user_id': myID(get_jwt_identity()) }), 401
-
-@app.route('/student', methods=['GET'])
-@jwt_required
-def rolestudent():
-  if get_student(get_jwt_identity()):
-    return jsonify({"msg":'ROLESTUDENT', 'user_id': myID(get_jwt_identity()) }), 200
-  else:
-    return jsonify({"msg": "not authorized", 'user_id': myID(get_jwt_identity()) }), 401
-
-@app.route('/tutor', methods=['GET'])
-@jwt_required
-def roleatutor():
-  if get_tutor(get_jwt_identity()):
-    return jsonify({"msg":'ROLETUTOT', 'user_id': myID(get_jwt_identity()) }), 200
-  else:
-    return jsonify({"msg": "not authorized", 'user_id': myID(get_jwt_identity()) }), 401
-
-
+################################### testing the roles #################################
+#@app.route('/admin', methods=['GET'])
+#@jwt_required
+#def roleadmin():
+#  if get_admin(get_jwt_identity()):
+#    return jsonify({"msg":'ROLEADMIN', 'user_id': myID(get_jwt_identity()) }), 200
+#  else:
+#    return jsonify({"msg": "not authorized", 'user_id': myID(get_jwt_identity()) }), 401
+#
+#@app.route('/student', methods=['GET'])
+#@jwt_required
+#def rolestudent():
+#  if get_student(get_jwt_identity()):
+#    return jsonify({"msg":'ROLESTUDENT', 'user_id': myID(get_jwt_identity()) }), 200
+#  else:
+#    return jsonify({"msg": "not authorized", 'user_id': myID(get_jwt_identity()) }), 401
+#
+#@app.route('/tutor', methods=['GET'])
+#@jwt_required
+#def roleatutor():
+#  if get_tutor(get_jwt_identity()):
+#    return jsonify({"msg":'ROLETUTOT', 'user_id': myID(get_jwt_identity()) }), 200
+#  else:
+#    return jsonify({"msg": "not authorized", 'user_id': myID(get_jwt_identity()) }), 401
+#
+#

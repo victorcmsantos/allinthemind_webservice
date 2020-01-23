@@ -1,6 +1,6 @@
 from app import db
-from app.models import Classe, Course
-from app.mgmt_users import myEmail
+from app.models import Classe, Course, Enrolled
+from app.mgmt_users import myEmail, myUsername
 import json
 
 def courseID(coursename):
@@ -11,6 +11,9 @@ def courseName(courseID):
 
 def className(classid):
   return Classe.query.filter_by(id=classid).first().name
+
+def classID(classname):
+  return Classe.query.filter_by(name=classname).first().id
 
 def tutorOfClasse(classId):
   return myEmail(Classe.query.filter_by(id=classId).first().tutor_id)
@@ -49,7 +52,17 @@ def listClasses( tutorID ):
   #print array
   return array
     
-    #print Classe.query.filter_by(id=i.id).first().name
+def usersOfClass( classname ):
+  array=[]
+  #return classID(classname)
+  if Enrolled.query.filter_by(classe_id=classID(classname)).all():
+    #return Enrolled.query.filter_by(classe_id=classID(classname)).all()
+    for i in Enrolled.query.filter_by(classe_id=classID(classname)).all():
+      dic = {}
+      dic['email'] = myEmail(i.user_id).encode("utf-8")
+      dic['username'] = myUsername(i.user_id).encode("utf-8")
+      array.append(dic)
+  return array
 
 
 

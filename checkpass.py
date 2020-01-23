@@ -2,7 +2,7 @@ import json
 from app.models import User
 from app.courses import Courses
 from app.mgmt_users import getUsers
-from app.classes import listClasses
+from app.classes import listClasses, usersOfClass
 
 
 #Descriptions()
@@ -17,13 +17,14 @@ from app.classes import listClasses
 #  print k
 
 
+print( usersOfClass('letgggg'))
 
-Courses_l = Courses()
+#Courses_l = Courses()
 #
 ##print(MyInstance.SayHello())
 #
 #
-print(Courses_l.myCourses(2))
+#print(Courses_l.myCourses(2))
 #print(Courses_l.Descriptions())
 
 

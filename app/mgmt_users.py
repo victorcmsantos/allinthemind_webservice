@@ -8,6 +8,9 @@ def myID(user_email):
 def myEmail(user_id):
   return str(User.query.filter_by(id=user_id).first().email)
 
+def myUsername(user_id):
+  return str(User.query.filter_by(id=user_id).first().username)
+
 def createRoles():
   status={}
   for i in ['student','admin','tutor']:
