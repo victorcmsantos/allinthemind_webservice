@@ -2,13 +2,13 @@
 
 ## Clone this Repository
 ```bash
-git clone git@github.com:victorcmsantos/allinthemind_webservice.git
+git clone git@github.com:victorcmsantos/allinthemind_webservice.git 
 ```
 
 
 ## Run the image already done to run this code
 ```bash
-sudo docker run -d -p80:5000 -e FLASK_APP=allinthemind.py -v allinthemind_webservice:/allinthemind -w /allinthemind victorcmsantos/blackdrama:01 flask run -h 0.0.0.0
+sudo docker run -d -p80:5000 -e FLASK_APP=allinthemind.py -v ${PWD}/allinthemind_webservice:/allinthemind -w /allinthemind victorcmsantos/blackdrama:01 flask run -h 0.0.0.0
 ```
 
 ## How to create a simple user:
