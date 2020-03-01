@@ -27,7 +27,7 @@ jwt = JWTManager(app)
 
 @app.route('/')
 def index():
-  return "Hello, World!"
+  return "yes, it is a API server"
 
 @app.route('/createRoles', methods=['POST'])
 def croles():
@@ -110,7 +110,7 @@ def register_tutor():
 @app.route('/admin/users')
 @jwt_required
 def get_users():
-  if get_admin(get_jwt_identity()):
+  if get_admin(get_jwt_identity()) or get_tutor(get_jwt_identity()):
     return jsonify(getUsers()), 200
   else:
     return jsonify({"msg": "not authorized"}), 401
